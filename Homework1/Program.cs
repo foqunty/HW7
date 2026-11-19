@@ -1,30 +1,3 @@
-// Homework 1 - Book class
-// Arrays + Classes together
-
-Book[] books =
-{
-    new Book("Suç ve Ceza", "Dostoyevski", 687),
-    new Book("Sefiller", "Victor Hugo", 1488),
-    new Book("Küçük Prens", "Antoine de Saint-Exupéry", 96)
-};
-
-Console.WriteLine("All books:");
-foreach (Book b in books)
-{
-    Console.WriteLine("- " + b.Info());
-}
-
-Book longest = books[0];
-foreach (Book b in books)
-{
-    if (b.Pages > longest.Pages)
-        longest = b;
-}
-
-Console.WriteLine();
-Console.WriteLine("Book with the most pages:");
-Console.WriteLine("- " + longest.Info());
-
 class Book
 {
     private int pages;
@@ -37,9 +10,10 @@ class Book
         get { return pages; }
         set
         {
-            if (value <= 0)
-                throw new ArgumentException("Pages must be greater than 0.");
-            pages = value;
+            if (value > 0)
+                pages = value;
+            else
+                throw new ArgumentException("Pages must be > 0");
         }
     }
 
@@ -52,6 +26,32 @@ class Book
 
     public string Info()
     {
-        return $"{Title} by {Author}, {Pages} pages";
+        return Title + " by " + Author + ", " + Pages + " pages";
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Book[] books = new Book[3];
+        books[0] = new Book("Suç ve Ceza", "Dostoyevski", 687);
+        books[1] = new Book("Sefiller", "Victor Hugo", 1488);
+        books[2] = new Book("Küçük Prens", "Saint-Exupery", 96);
+
+        foreach (Book b in books)
+        {
+            Console.WriteLine(b.Info());
+        }
+
+        Book max = books[0];
+        foreach (Book b in books)
+        {
+            if (b.Pages > max.Pages)
+                max = b;
+        }
+
+        Console.WriteLine();
+        Console.WriteLine("Most pages: " + max.Info());
     }
 }
